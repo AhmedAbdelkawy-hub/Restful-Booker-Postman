@@ -1,0 +1,1243 @@
+{
+	"info": {
+		"_postman_id": "2711f878-e5a0-4711-b1d0-8ef2e3695a4d",
+		"name": "Restful-Booker - project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26381736"
+	},
+	"item": [
+		{
+			"name": "1.Token",
+			"item": [
+				{
+					"name": "1.1 Token-Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"//Verify the token status code is 200 \r",
+									"pm.test(\"[1.Token].[1.1 token].[1] Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Save any data from respons body token collection \r",
+									"var tokenRespons = JSON.parse(responseBody).token;\r",
+									"pm.collectionVariables.set(\"token\",tokenRespons)\r",
+									"\r",
+									"//verify token is retrived and not empty\r",
+									"pm.test(\" [1.Token].[1.1 token].[2] Verify token is retrived and not empty\"),function(){\r",
+									"    var token = JSON.parse(responseBody).token\r",
+									"    pm.expect(token).to.be.not.empty;\r",
+									"}\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify token is exist\r",
+									"pm.test(\"[1.Token].[1.1 token].[3] Verify token  is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"token\")\r",
+									"});\r",
+									"//verify token not null or undefined\r",
+									"pm.test(\"[1.Token].[1.1 token].[4] Verify token not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).token).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).token).to.not.be.equal(undefined);\r",
+									"}); \r",
+									" //verify  token Type is number\r",
+									"pm.test(\"[1.Token].[1.1 token].[5] Verify Booking ID Type is number\",function(){\r",
+									"    console.log(typeof JSON.parse(responseBody).token); \r",
+									"    pm.expect(typeof JSON.parse(responseBody).token).to.be.equal(\"string\")\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const username = \"admin\";\r",
+									"const password = \"password123\";\r",
+									"pm.collectionVariables.set(\"username\",username)\r",
+									"pm.collectionVariables.set(\"password\",password)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/auth",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2.Booking",
+			"item": [
+				{
+					"name": "2.1 GetBooking-Ids",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Verify get Booking Ids sucess with 200 status code\r",
+									"pm.test(\" [2.Booking].[2.1 GetBooking IDs].[1] Verify get Booking Ids sucess with 200 status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/booking",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Create new booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									" // verify status code is 200 ok\r",
+									"pm.test(\" [2.Booking].[2.2 CreateNewBooking].[1] Verify booking created sucess with Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"   });\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify Booking Id is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[2] Verify Booking Id is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"bookingid\")\r",
+									"});\r",
+									"//verify Booking Id not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[3] Verify Booking Id not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingid).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).bookingid).to.not.be.equal(undefined);\r",
+									"}); \r",
+									" //verify Booking ID Type is number\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[4] Verify Booking ID Type is number\",function(){\r",
+									"    console.log(typeof JSON.parse(responseBody).bookingid); \r",
+									"    pm.expect(typeof JSON.parse(responseBody).bookingid).to.be.equal(\"number\")\r",
+									"});\r",
+									"\r",
+									" \r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify Booking TCs and  is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[5] Verify Booking  is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"booking\")\r",
+									"});\r",
+									"//verify Booking  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[6] Verify Booking  not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify Booking Type is number\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[7] Verify Booking Type is object\",function(){\r",
+									"    \r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking).to.be.equal(\"object\") ;\r",
+									"});\r",
+									" console.log(typeof JSON.parse(responseBody).booking);\r",
+									" \r",
+									"\r",
+									"\r",
+									"//set firstname and lastname varaible on collection \r",
+									"var firstname = (JSON.parse(responseBody).booking.firstname);\r",
+									"var lastname = (JSON.parse(responseBody).booking.lastname);\r",
+									"pm.collectionVariables.set(\"firstname\",firstname);\r",
+									"pm.collectionVariables.set(\"lastname\",lastname);\r",
+									"\r",
+									"\r",
+									"//verify firstname Tcs and  is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[8] Verify firstname is exist on resposeBody\",function(){\r",
+									"    pm.collectionVariables.get(\"firstname\")\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.have.property(\"firstname\")\r",
+									"});\r",
+									"//verify firstname  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[9] Verify firstname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.firstname).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.firstname).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify firstname Type is string\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[10] Verify firstname Type is object\",function(){\r",
+									"    \r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.firstname).to.be.equal(\"string\") \r",
+									"});\r",
+									" console.log(typeof JSON.parse(responseBody).booking.firstname);\r",
+									" //verify firstname value as expected  \r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[11] Verify firstname value as expected \",function(){\r",
+									"   \r",
+									"     pm.expect(JSON.parse(request.data).firstname).to.be.equal( JSON.parse(responseBody).booking.firstname) ;\r",
+									"});\r",
+									"console.log(JSON.parse(responseBody).booking.firstname);\r",
+									" \r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify lastname TCS and  is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[12] Verify lastname is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.have.property(\"lastname\")\r",
+									"});\r",
+									"//verify lastname  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[13] Verify  lastname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.lastname).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.lastname).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify lastname Type is string\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[14] Verify lastname Type is string\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).booking.lastname);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.lastname).to.be.equal(\"string\") ;\r",
+									"});\r",
+									"//verify lastname value as expected  \r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[15] Verify lastname value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).booking.lastname);\r",
+									"    pm.expect( JSON.parse(responseBody).booking.lastname).to.be.equal(JSON.parse(request.data).lastname) ;\r",
+									"});\r",
+									"\r",
+									" \r",
+									"\r",
+									"\r",
+									"//verify totalprice is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[16] Verify totalprice is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.have.property(\"totalprice\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[17] Verify  lastname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.totalprice).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.totalprice).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify totalprice Type is number\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[18] Verify totalprice Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).booking.totalprice);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.totalprice).to.be.equal(\"number\") ;\r",
+									"});\r",
+									"//verify totalprice value as expected  \r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[19] Verify totalprice value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).booking.totalprice);\r",
+									"    pm.expect( JSON.parse(responseBody).booking.totalprice).to.be.equal(JSON.parse(request.data).totalprice) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify depositpaid is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[20] Verify depositpaid is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.have.property(\"depositpaid\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[21] Verify  depositpaid not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.depositpaid).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.depositpaid).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify depositpaid Type is number\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[22] Verify depositpaid Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).booking.depositpaid);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.depositpaid).to.be.equal(\"boolean\") ;\r",
+									"});\r",
+									"//verify depositpaid value as expected  \r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[23] Verify depositpaid value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).booking.depositpaid);\r",
+									"    pm.expect( JSON.parse(responseBody).booking.depositpaid).to.be.equal(JSON.parse(request.data).depositpaid) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify bookingdates is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[24] Verify bookingdates is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.have.property(\"bookingdates\")\r",
+									"});\r",
+									"//verify bookingdates have checkin and checkout objects\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[25] Verify bookingdates have checkinand checkout  object\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates).to.have.property(\"checkin\")\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[26] Verify  bookingdates not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify bookingdates Type is object \r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[27] Verify bookingdates Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).booking.bookingdates);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.bookingdates).to.be.equal(\"object\") ;\r",
+									"});\r",
+									"// Verify bookingdates contian two object checki and check out      //Question 1 this alwys failed\r",
+									"//                                  when enable this code the method will faile  \r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[28] Verify bookingdates value as expected\", function() {\r",
+									" \r",
+									" // console.log(JSON.parse(responseBody).booking.bookingdates.checkin);\r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkout);\r",
+									"\r",
+									"\r",
+									"   pm.expect(JSON.parse(responseBody).booking.bookingdates).to.have.property(\"checkin\")\r",
+									"   pm.expect(JSON.parse(responseBody).booking.bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify checkin and checkout  is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[29] Verify bookingdates is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates).to.have.property(\"checkin\")\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"//verify checkin and checkout  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[30] Verify checkin and checkout not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates.checkin).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.bookingdates.checkout).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify checkin and checkout type is objects\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[31] Verify checkin and checkout type is objects\",function(){\r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.bookingdates.checkin).to.be.equal(\"string\")\r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.bookingdates.checkout).to.be.equal(\"string\")\r",
+									"});\r",
+									"// Verify checkin and checkout value as expected\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[32] Verify checkin and checkout value as expected\", function() {\r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkin);   i have question here when enable this code the method will faile \r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkout);\r",
+									"  console.log(JSON.parse(responseBody).booking.bookingdates.checkin);\r",
+									"  console.log(JSON.parse(responseBody).booking.bookingdates.checkout);\r",
+									"\r",
+									"    pm.expect( JSON.parse(responseBody).booking.bookingdates.checkin).to.be.equal(JSON.parse(request.data).bookingdates.checkin) ;\r",
+									"    pm.expect( JSON.parse(responseBody).booking.bookingdates.checkout).to.be.equal(JSON.parse(request.data).bookingdates.checkout) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify additionalneeds   is exist\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[33] Verify additionalneeds is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).booking).to.have.property(\"additionalneeds\")\r",
+									"\r",
+									"});\r",
+									"//verify additionalneeds not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[34] Verify checkin and checkout not null or undefined \",function(){\r",
+									"      console.log(JSON.parse(responseBody).booking.bookingdates.additionalneeds);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.additionalneeds).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).booking.additionalneeds).to.not.be.equal(undefined);\r",
+									"\r",
+									"});\r",
+									"//verify checkin and checkout type is objects\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[35] Verify checkin and checkout type is objects\",function(){\r",
+									"    pm.expect(typeof JSON.parse(responseBody).booking.additionalneeds).to.be.equal(\"string\")\r",
+									"});\r",
+									"// Verify checkin and checkout value as expected\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[36] Verify checkin and checkout value as expected\", function() {\r",
+									"\r",
+									"  console.log(JSON.parse(responseBody).booking.additionalneeds);\r",
+									"\r",
+									"    pm.expect( JSON.parse(responseBody).booking.additionalneeds).to.be.equal(JSON.parse(request.data).additionalneeds) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//pm.expect(JSON.parse(request.data).firstname).to.be.equal() Question number 3 this not working ?\r",
+									"/* var CurrentBookingId = JSON.parse(responseBody).bookingid;\r",
+									"pm.collectionVariables.set(\"bookingid\",CurrentBookingId);\r",
+									"postman.setNextRequest(\"GetBooking\")*/\r",
+									" \r",
+									"//verify get new Booging id  retrived with status cod 200. \r",
+									"  var CurrentBookingId = JSON.parse(responseBody).bookingid;\r",
+									"pm.collectionVariables.set(\"bookingid\",CurrentBookingId);\r",
+									"var baseurl = pm.environment.get(\"baseurl\");\r",
+									"const url = `${baseurl}/booking/${CurrentBookingId}`; //Construct the URL with the dynamic bookingiD\r",
+									"pm.sendRequest(url); // Send the request with the correct URL\r",
+									"pm.test(\"[2.Booking].[2.2 CreateNewBooking].[37] Verify this new Booging id is exist retrived with status cod 200 \"),function(){\r",
+									"   pm.response.to.have.status(200);\r",
+									"\r",
+									"}  \r",
+									"\r",
+									"\r",
+									"\r",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									" // Generate a random number between 100 and 150 (inclusive)\r",
+									"function generateRandomPrice() {\r",
+									"  const randomPrice = Math.floor(Math.random() * (150 - 100 + 1)) + 100;\r",
+									"  return randomPrice;\r",
+									"}\r",
+									"// Call the function to generate a random price and store it in a variable\r",
+									"const generatedPrice = generateRandomPrice();\r",
+									"pm.collectionVariables.set(\"totalprice\",generatedPrice);\r",
+									"\r",
+									"\r",
+									"\r",
+									"// Generate a random true/false value for \"depositpaid\"\r",
+									"  function generateRandomBooleanString() {\r",
+									"  return Math.random() >= 0.5 ? \"true\" : \"false\";\r",
+									"}\r",
+									"var randomBooleanString = generateRandomBooleanString();\r",
+									"pm.collectionVariables.set(\"depositpaid\",randomBooleanString);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"// Generate a random check in and check out dates \r",
+									"\r",
+									"function generateRandomDates() {\r",
+									"  const minDate = new Date(1990, 0, 1);\r",
+									"  const maxDate = new Date(1999, 11, 31);\r",
+									"\r",
+									"  // Generate random check-in date\r",
+									"  const daysBetween = Math.floor(Math.random() * (maxDate.getTime() - minDate.getTime()) + minDate.getTime());\r",
+									"  const checkInDate = new Date(daysBetween);\r",
+									"\r",
+									"  // Generate random checkout date after check-in date\r",
+									"  const minCheckoutTime = checkInDate.getTime();\r",
+									"  const maxCheckoutTime = maxDate.getTime();\r",
+									"  const checkoutDaysBetween = Math.floor(Math.random() * (maxCheckoutTime - minCheckoutTime) + minCheckoutTime);\r",
+									"  const checkOutDate = new Date(checkoutDaysBetween);\r",
+									"\r",
+									"  // Extract and format dates before returning\r",
+									"  return {\r",
+									"    checkInDate: checkInDate.toISOString().slice(0, 10),\r",
+									"    checkOutDate: checkOutDate.toISOString().slice(0, 10)\r",
+									"  };\r",
+									"}\r",
+									"\r",
+									"// Generate and set collection variables\r",
+									"const randomDates = generateRandomDates();\r",
+									"pm.collectionVariables.set(\"checkin\", randomDates.checkInDate);\r",
+									"pm.collectionVariables.set(\"checkout\", randomDates.checkOutDate);\r",
+									"\r",
+									"\r",
+									"\r",
+									"// Generate a random meals \r",
+									"function generateRandomMeal() {\r",
+									"  const meals = [\"breakfast\", \"lunch\", \"dinner\"];\r",
+									"  const randomIndex = Math.floor(Math.random() * meals.length);\r",
+									"  return meals[randomIndex];\r",
+									"}\r",
+									"const randomMeal = generateRandomMeal();\r",
+									"pm.collectionVariables.set(\"additionalneeds\",randomMeal);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\"       : \"{{$randomFirstName}}\",\r\n    \"lastname\"        : \"{{$randomLastName}}\",\r\n    \"totalprice\"      : {{totalprice}},\r\n    \"depositpaid\"     : {{depositpaid}},\r\n    \"bookingdates\"    : \r\n    {\r\n        \"checkin\"     : \"{{checkin}}\",\r\n        \"checkout\"    : \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{additionalneeds}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/booking",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 GetBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//Verify status code is 200 when retrive any booking id \r",
+									"pm.test(\" [2.Booking].[2.3 GetBooking].[1] Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify firstname is exist\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[2] Verify firstname is exist on resposeBody\",function(){\r",
+									"    pm.collectionVariables.get(\"firstname\")\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"firstname\")\r",
+									"});\r",
+									"//verify firstname  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[3] Verify firstname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).firstname).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).firstname).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify firstname Type is string\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[4] Verify firstname Type is object\",function(){\r",
+									"    \r",
+									"    pm.expect(typeof JSON.parse(responseBody).firstname).to.be.equal(\"string\") \r",
+									"});\r",
+									" console.log(typeof JSON.parse(responseBody).firstname);\r",
+									" //verify firstname value as expected  \r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[5] Verify firstname value as expected \",function(){\r",
+									"  \r",
+									"   pm.expect(pm.collectionVariables.get(\"firstname\")).to.be.equal(( JSON.parse(responseBody).firstname)) ;\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify lastname TCS and  is exist\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[6] Verify lastname is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"lastname\")\r",
+									"});\r",
+									"//verify lastname  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[7] Verify  lastname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).lastname).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).lastname).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify lastname Type is string\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[8] Verify lastname Type is string\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).lastname);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).lastname).to.be.equal(\"string\") ;\r",
+									"});\r",
+									"\r",
+									"//verify lastname value as expected  \r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[9] Verify lastname value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).lastname);\r",
+									"   pm.expect(pm.collectionVariables.get(\"lastname\")).to.be.equal(( JSON.parse(responseBody).lastname)) ;\r",
+									"});\r",
+									"\r",
+									" \r",
+									"\r",
+									" //verify totalprice is exist\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[10] Verify totalprice is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"totalprice\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[11] Verify  lastname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).totalprice).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).totalprice).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify totalprice Type is number\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[12] Verify totalprice Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).totalprice);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).totalprice).to.be.equal(\"number\") ;\r",
+									"});\r",
+									"//verify totalprice value as expected  \r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[13] Verify totalprice value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).totalprice);\r",
+									"    pm.expect( pm.collectionVariables.get(\"totalprice\")).to.be.equal(JSON.parse(responseBody).totalprice) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify depositpaid is exist\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[14] Verify depositpaid is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"depositpaid\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[15] Verify  depositpaid not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).depositpaid).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).depositpaid).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify depositpaid Type is number\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[16] Verify depositpaid Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).depositpaid);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).depositpaid).to.be.equal(\"boolean\") ;\r",
+									"});\r",
+									"//verify depositpaid value as expected  \r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[17] Verify depositpaid value as expected\", function() {\r",
+									"  const responseDepositPaid = JSON.parse(responseBody).depositpaid;\r",
+									"  const expectedDepositPaid = pm.collectionVariables.get(\"depositpaid\");\r",
+									"\r",
+									"  pm.expect(responseDepositPaid).to.be.equal(JSON.parse(expectedDepositPaid)); // Parse expected value\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify bookingdates is exist\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[18] Verify bookingdates is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"bookingdates\")\r",
+									"});\r",
+									"//verify bookingdates have checkin and checkout objects\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[19] Verify bookingdates have checkinand checkout  object\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkin\")\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[20] Verify  bookingdates not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify bookingdates Type is object \r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[21] Verify bookingdates Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).bookingdates);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).bookingdates).to.be.equal(\"object\") ;\r",
+									"});\r",
+									"// Verify bookingdates contian two object checki and check out      //Question 1 this alwys failed\r",
+									"//                                  when enable this code the method will faile  \r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[22] Verify bookingdates value as expected\", function() {\r",
+									" \r",
+									" // console.log(JSON.parse(responseBody).booking.bookingdates.checkin);\r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkout);\r",
+									"   pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkin\")\r",
+									"   pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify checkin and checkout  is exist\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[23] Verify bookingdates is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkin\")\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"//verify checkin and checkout  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[24] Verify checkin and checkout not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates.checkin).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates.checkout).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify checkin and checkout type is objects\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[25] Verify checkin and checkout type is objects\",function(){\r",
+									"    pm.expect(typeof JSON.parse(responseBody).bookingdates.checkin).to.be.equal(\"string\")\r",
+									"    pm.expect(typeof JSON.parse(responseBody).bookingdates.checkout).to.be.equal(\"string\")\r",
+									"});\r",
+									"// Verify checkin and checkout value as expected\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[26] Verify checkin and checkout value as expected\", function() {\r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkin);   i have question here when enable this code the method will faile \r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkout);\r",
+									"  console.log(JSON.parse(responseBody).bookingdates.checkin);\r",
+									"  console.log(JSON.parse(responseBody).bookingdates.checkout);\r",
+									"\r",
+									"    pm.expect(pm.collectionVariables.get(\"checkin\") ).to.be.equal(JSON.parse(responseBody).bookingdates.checkin) ;\r",
+									"    pm.expect(pm.collectionVariables.get(\"checkout\")).to.be.equal(JSON.parse(responseBody).bookingdates.checkout) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify additionalneeds   is exist\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[27] Verify additionalneeds is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"additionalneeds\")\r",
+									"\r",
+									"});\r",
+									"//verify additionalneeds not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[28] Verify checkin and checkout not null or undefined \",function(){\r",
+									"      console.log(JSON.parse(responseBody).bookingdates.additionalneeds);\r",
+									"    pm.expect(JSON.parse(responseBody).additionalneeds).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).additionalneeds).to.not.be.equal(undefined);\r",
+									"\r",
+									"});\r",
+									"//verify checkin and checkout type is objects\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[29] Verify checkin and checkout type is objects\",function(){\r",
+									"    pm.expect(typeof JSON.parse(responseBody).additionalneeds).to.be.equal(\"string\")\r",
+									"});\r",
+									"// Verify checkin and checkout value as expected\r",
+									"pm.test(\"[2.Booking].[2.3 GetBooking].[30] Verify checkin and checkout value as expected\", function() {\r",
+									"\r",
+									"  console.log(JSON.parse(responseBody).additionalneeds);\r",
+									"\r",
+									"    pm.expect( pm.collectionVariables.get(\"additionalneeds\")).to.be.equal(JSON.parse(responseBody).additionalneeds) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/booking/:id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 UpdateBooking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// verify status code is 200 ok\r",
+									" pm.test(\" [2.Booking].[2.4 Updatebooking].[1] Verify booking updated  sucess with Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"   });\r",
+									"\r",
+									"\r",
+									"//verify firstname Tcs and  is exist\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[2] Verify firstname is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"firstname\")\r",
+									"});\r",
+									"//verify firstname  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[3] Verify firstname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).firstname).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).firstname).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify firstname Type is string\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[4] Verify firstname Type is object\",function(){\r",
+									"    \r",
+									"    pm.expect(typeof JSON.parse(responseBody).firstname).to.be.equal(\"string\") \r",
+									"});\r",
+									" console.log(typeof JSON.parse(responseBody).firstname);\r",
+									" //verify firstname value as expected  \r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[5] Verify firstname value as expected \",function(){\r",
+									"   console.log(JSON.parse(responseBody).firstname);\r",
+									"     pm.expect(JSON.parse(request.data).firstname).to.be.equal( JSON.parse(responseBody).firstname) ;\r",
+									"});\r",
+									"\r",
+									" \r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify lastname TCS and  is exist\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[6] Verify lastname is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"lastname\")\r",
+									"});\r",
+									"//verify lastname  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[7] Verify  lastname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).lastname).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).lastname).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify lastname Type is string\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[8] Verify lastname Type is string\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).lastname);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).lastname).to.be.equal(\"string\") ;\r",
+									"});\r",
+									"//verify lastname value as expected  \r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[9] Verify lastname value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).lastname);\r",
+									"    pm.expect( JSON.parse(request.data).lastname).to.be.equal(JSON.parse(responseBody).lastname) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify totalprice is exist\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[10] Verify totalprice is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"totalprice\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[11] Verify  lastname not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).totalprice).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).totalprice).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify totalprice Type is number\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[12] Verify totalprice Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).totalprice);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).totalprice).to.be.equal(\"number\") ;\r",
+									"});\r",
+									"//verify totalprice value as expected  \r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[13] Verify totalprice value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).totalprice);\r",
+									"    pm.expect( JSON.parse(request.data).totalprice).to.be.equal(JSON.parse(responseBody).totalprice) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify depositpaid is exist\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[14] Verify depositpaid is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"depositpaid\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[15] Verify  depositpaid not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).depositpaid).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).depositpaid).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify depositpaid Type is number\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[16] Verify depositpaid Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).depositpaid);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).depositpaid).to.be.equal(\"boolean\") ;\r",
+									"});\r",
+									"//verify depositpaid value as expected  \r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[17] Verify depositpaid value as expected\",function()\r",
+									"{\r",
+									"    console.log(JSON.parse(responseBody).depositpaid);\r",
+									"    pm.expect( JSON.parse(request.data).depositpaid).to.be.equal(JSON.parse(responseBody).depositpaid) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify bookingdates is exist\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[18] Verify bookingdates is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"bookingdates\")\r",
+									"});\r",
+									"//verify bookingdates have checkin and checkout objects\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[19] Verify bookingdates have checkinand checkout  object\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkin\")\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"//verify totalprice  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[20] Verify  bookingdates not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify bookingdates Type is object \r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[21] Verify bookingdates Type is number\",function(){\r",
+									"     console.log(typeof JSON.parse(responseBody).bookingdates);\r",
+									"    pm.expect(typeof JSON.parse(responseBody).bookingdates).to.be.equal(\"object\") ;\r",
+									"});\r",
+									"// Verify bookingdates contian two object checki and check out      //Question 1 this alwys failed\r",
+									"//                                  when enable this code the method will faile  \r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[22] Verify bookingdates value as expected\", function() {\r",
+									" \r",
+									" // console.log(JSON.parse(responseBody).booking.bookingdates.checkin);\r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkout);\r",
+									"\r",
+									"\r",
+									"   pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkin\")\r",
+									"   pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify checkin and checkout  is exist\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[23] Verify bookingdates is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkin\")\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates).to.have.property(\"checkout\")\r",
+									"});\r",
+									"//verify checkin and checkout  not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[24] Verify checkin and checkout not null or undefined \",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates.checkin).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).bookingdates.checkout).to.not.be.equal(undefined);\r",
+									"});\r",
+									"//verify checkin and checkout type is objects\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[25] Verify checkin and checkout type is objects\",function(){\r",
+									"    pm.expect(typeof JSON.parse(responseBody).bookingdates.checkin).to.be.equal(\"string\")\r",
+									"    pm.expect(typeof JSON.parse(responseBody).bookingdates.checkout).to.be.equal(\"string\")\r",
+									"});\r",
+									"// Verify checkin and checkout value as expected\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[26] Verify checkin and checkout value as expected\", function() {\r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkin);   i have question here when enable this code the method will faile \r",
+									"  //console.log(JSON.parse(request.data).booking.bookingdates.checkout);\r",
+									"  console.log(JSON.parse(responseBody).bookingdates.checkin);\r",
+									"  console.log(JSON.parse(responseBody).bookingdates.checkout);\r",
+									"\r",
+									"    pm.expect( JSON.parse(request.data).bookingdates.checkin).to.be.equal(JSON.parse(responseBody).bookingdates.checkin) ;\r",
+									"    pm.expect( JSON.parse(request.data).bookingdates.checkout).to.be.equal(JSON.parse(responseBody).bookingdates.checkout) ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify additionalneeds   is exist\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[27] Verify additionalneeds is exist on resposeBody\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody)).to.have.property(\"additionalneeds\")\r",
+									"\r",
+									"});\r",
+									"//verify additionalneeds not null or undefined\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[28] Verify checkin and checkout not null or undefined \",function(){\r",
+									"      console.log(JSON.parse(responseBody).bookingdates.additionalneeds);\r",
+									"    pm.expect(JSON.parse(responseBody).additionalneeds).to.not.be.equal(null);\r",
+									"    pm.expect(JSON.parse(responseBody).additionalneeds).to.not.be.equal(undefined);\r",
+									"\r",
+									"});\r",
+									"//verify checkin and checkout type is objects\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[29] Verify checkin and checkout type is objects\",function(){\r",
+									"    pm.expect(typeof JSON.parse(responseBody).additionalneeds).to.be.equal(\"string\")\r",
+									"});\r",
+									"// Verify checkin and checkout value as expected\r",
+									"pm.test(\"[2.Booking].[2.4 Updatebooking].[30] Verify checkin and checkout value as expected\", function() {\r",
+									"\r",
+									"  console.log(JSON.parse(responseBody).additionalneeds);\r",
+									"\r",
+									"    pm.expect(JSON.parse(request.data).additionalneeds).to.be.equal(JSON.parse(responseBody).additionalneeds) ;\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//verify this new Booging id  retrived with status cod 200 after updated .\r",
+									"  var BookingId = pm.collectionVariables.get(\"bookingid\");\r",
+									" var baseurl = pm.environment.get(\"baseurl\");\r",
+									" const url = `${baseurl}/booking/${BookingId}`; //Construct the URL with the dynamic bookingiD\r",
+									" pm.sendRequest(url); // Send the request with the correct URL\r",
+									" pm.test(\"[2.Booking].[2.3 Updatebooking].[2] Verify this new Booging id is exist and updated and  retrived with status cod 200 \"),function(){\r",
+									"   pm.response.to.have.status(200);\r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "token=abc123",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\"       : \"{{$randomFirstName}}\",\r\n    \"lastname\"        : \"{{$randomLastName}}\",\r\n    \"totalprice\"      : {{totalprice}},\r\n    \"depositpaid\"     : {{depositpaid}},\r\n    \"bookingdates\"    : \r\n    {\r\n        \"checkin\"     : \"{{checkin}}\",\r\n        \"checkout\"    : \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{additionalneeds}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/booking/:id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.5 DeleteBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// verify status code is 201 ok\r",
+									"pm.test(\" [2.Booking].[2.5DeleteBooking].[1] Verify booking deleted  sucess with Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"   });\r",
+									"\r",
+									" //verify delete  response body text value \r",
+									"pm.test(\"[2.Booking].[2.5DeleteBooking].[2] Verify delete  response body text value \",function(){\r",
+									"    pm.expect(responseBody).to.be.equal('Created')\r",
+									"});\r",
+									"\r",
+									"// Verify that the record id not exist \r",
+									"    var bookingId = pm.collectionVariables.get(\"bookingid\");\r",
+									" var baseurl = pm.environment.get(\"baseurl\");\r",
+									" const url = `${baseurl}/booking/${bookingId}`; //Construct the URL with the dynamic bookingiD\r",
+									" pm.sendRequest(url); // Send the request with the correct URL\r",
+									" \r",
+									" pm.test(\"[2.Booking].[2.5DeleteBooking].[3] Verify this new Booging id not found \"),function(){\r",
+									"   pm.expect(JSON.parse(responseBody).to.be.have('Not Found'));\r",
+									" }\r",
+									" pm.test(\"verify this new Booging id not found  status cod 404 \"),function(){\r",
+									"   pm.response.to.have.status(404);\r",
+									" }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/booking/:id",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3.Ping",
+			"item": [
+				{
+					"name": "3.1 Ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// verify booking ping id sucess with code \r",
+									"pm.test(\"[3.Ping].[3.1 Ping].[1] Verify booking ping id sucess with code \", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"   });\r",
+									"   //verify ping response body text\r",
+									"pm.test(\"[3.Ping].[3.1 Ping].[2] Verify ping response body text\",function(){\r",
+									"    pm.expect(responseBody).to.be.equal('Created')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/ping",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "totalprice",
+			"value": ""
+		},
+		{
+			"key": "depositpaid",
+			"value": ""
+		},
+		{
+			"key": "checkin",
+			"value": ""
+		},
+		{
+			"key": "checkout",
+			"value": ""
+		},
+		{
+			"key": "additionalneeds",
+			"value": ""
+		},
+		{
+			"key": "bookingid",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "firstname",
+			"value": ""
+		},
+		{
+			"key": "lastname",
+			"value": ""
+		}
+	]
+}
