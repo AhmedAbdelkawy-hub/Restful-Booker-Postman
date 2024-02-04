@@ -1,6 +1,6 @@
 # Restful Booker
  
-![Restful Booker Logo](https://static.vecteezy.com/system/resources/thumbnails/009/020/508/small/xyz-logo-xyz-letter-xyz-letter-logo-design-initials-xyz-logo-linked-with-circle-and-uppercase-monogram-logo-xyz-typography-for-technology-business-and-real-estate-brand-vector.jpg)
+![Restful Booker Logo](https://www.google.com.eg/imgres?imgurl=https%3A%2F%2Fseekvectorlogo.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fbooker-vector-logo.png&tbnid=Hrf2KL7AHOBLvM&vet=12ahUKEwiWmeza1pKEAxUXmycCHZetDDcQMygCegQIARAx..i&imgrefurl=https%3A%2F%2Fseekvectorlogo.com%2Fbooker-vector-logo-svg%2F&docid=V0uugRIpHlX0tM&w=900&h=500&q=restful-booker-platform%20%20logo%20image%20extension%20.jpg)
  
 ## Table of Contents
  
@@ -17,10 +17,9 @@ Restful Booker is a booking application that provides various booking services a
  
 ## Features
  
-- **Account Management**: Create and manage bank accounts.
-- **Transactions**: Perform transactions such as deposits, withdrawals, and transfers.
-- **Account Statements**: Generate account statements for a specific time period.
-- **Security**: Ensure secure and encrypted transactions.
+- **Account Management**: Create and manage booker items.
+- **Transactions**: Perform operations such as add and update and delete booker .
+- **Security**: Ensure secure and encrypted token .
  
 ## Installation
  
@@ -31,12 +30,12 @@ To set up the Restful Booker application locally, follow these steps:
 2. Navigate to the project directory:
 *   cd Restful-Booker
 3. Install dependencies:
-*   npm install
+*   postman using newman
 4. Configure the application:
  
 * Update configuration files with necessary settings.
 5. Run the application:
-*   npm start
+*   postman start
  
 ## Usage
 * User Guide: Refer to the User Guide for detailed information on how to use the Restful Booker application.
